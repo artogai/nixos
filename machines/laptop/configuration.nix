@@ -32,6 +32,8 @@
       enp2s0.useDHCP = true;
       wlp3s0.useDHCP = true;
     };
+
+    nameservers = [ "1.1.1.1" ];
   };
 
   environment.systemPackages = with pkgs; [
@@ -42,11 +44,11 @@
     git
   ];
 
+  services.logind.lidSwitch = "suspend-then-hibernate";
+
   services.xserver.desktopManager.gnome.enable = true;
 
   nixpkgs.config.allowUnfree = true;
-
-  hardware.cpu.amd.updateMicrocode = true;
 
   system.stateVersion = "21.11";
 }

@@ -10,6 +10,9 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  gpu = "amd";
+  hardware.cpu.amd.updateMicrocode = true;
+
   boot.initrd.luks.devices.crypted = {
     device = "/dev/disk/by-partuuid/6e0a972c-0a49-454e-84db-96f39a5c3a0d";
     allowDiscards = true;
@@ -30,5 +33,4 @@
     [ { device = "/dev/disk/by-uuid/7a2b69f1-771d-407c-a6ac-3215339d6668"; }
     ];
 
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

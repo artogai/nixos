@@ -1,16 +1,18 @@
 { pkgs, ... }:
 {
   imports = [
-    ../../dotfiles/git.nix
+    ../../dotfiles/git
   ];
+
+  programs.java.enable = true;
 
   home.packages = with pkgs; [
     firefox
     tdesktop
     keepassxc
     vlc
+    transmission
 
-    jdk
     sbt
     scala
     visualvm
