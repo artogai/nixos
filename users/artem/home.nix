@@ -2,6 +2,7 @@
 {
   imports = [
     ../../dotfiles/git
+    ../../dotfiles/xmonad
   ];
 
   programs.java.enable = true;

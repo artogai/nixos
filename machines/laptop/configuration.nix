@@ -12,6 +12,7 @@
       ../../modules/touchpad.nix
       ../../modules/bluetooth.nix
       ../../modules/xserver.nix
+      ../../modules/xmonad.nix
       ../../modules/flakes.nix
       ../../modules/auto_gc.nix
     ];
@@ -46,7 +47,7 @@
 
   services.logind.lidSwitch = "suspend-then-hibernate";
 
-  services.xserver.desktopManager.gnome.enable = true;
+  #services.xserver.desktopManager.gnome.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 
