@@ -2,20 +2,24 @@
 {
   imports = [
     ../../dotfiles/git
+    ../../dotfiles/rofi
     ../../dotfiles/xmonad
   ];
 
   programs.java.enable = true;
 
   home.packages = with pkgs; [
+    alacritty
     firefox
     tdesktop
+    gnome.nautilus
     keepassxc
     vlc
     transmission
 
     sbt
     scala
+    ghc
     visualvm
     vscode
 

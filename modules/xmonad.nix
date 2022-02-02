@@ -4,14 +4,13 @@
     gnome.gnome-keyring.enable = true;
     upower.enable = true;
 
-    dbus = {
-      enable = true;
-      packages = [ pkgs.gnome3.dconf ];
-    };
+    #dbus = {
+    #  enable = true;
+    #  packages = [ pkgs.gnome3.dconf ];
+    #};
 
     xserver = {
       enable = true;
-      startDbusSession = true;
 
       displayManager.defaultSession = "none+xmonad";
 
@@ -22,7 +21,6 @@
 
     };
   };
-
 
   systemd.services.upower.enable = true;
 }
