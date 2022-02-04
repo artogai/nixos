@@ -2,7 +2,6 @@
 
 import XMonad
 import Data.Monoid
-import System.Exit
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Run
 import XMonad.Hooks.ManageDocks
@@ -17,12 +16,20 @@ import qualified Data.Map        as M
 
 import XMonad.Hooks.EwmhDesktops -- from RescueTime support
 
+import qualified Codec.Binary.UTF8.String              as UTF8
+import qualified DBus                                  as D
+import qualified DBus.Client                           as D
+import           XMonad.Hooks.DynamicLog
+
 import System.IO
+import System.Exit (exitSuccess)
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
 myTerminal      = "alacritty"
 
+-- The preferred launcher
+--
 myAppLauncher   = "rofi -modi drun,ssh,window -show drun -show-icons"
 
 -- Whether focus follows the mouse pointer.
@@ -119,7 +126,7 @@ additionalKeys =
     --
     -- , ("M-b", sendMessage ToggleStruts)
     -- Quit xmonad
-    , ("M-S-q", io (exitWith ExitSuccess))
+    , ("M-S-q", io exitSuccess)
     -- Restart xmonad
     , ("M-q", spawn "xmonad --recompile; xmonad --restart")
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
@@ -129,7 +136,7 @@ additionalKeys =
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
-myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
 
     [
     -- --  Reset the layouts on the current workspace to default
@@ -158,18 +165,18 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
 --
-myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
+myMouseBindings XConfig {XMonad.modMask = modm} = M.fromList
 
     -- mod-button1, Set the window to floating mode and move by dragging
-    [ ((modm, button1), (\w -> focus w >> mouseMoveWindow w
-                                       >> windows W.shiftMaster))
+    [ ((modm, button1), \w -> focus w >> mouseMoveWindow w
+                                       >> windows W.shiftMaster)
 
     -- mod-button2, Raise the window to the top of the stack
-    , ((modm, button2), (\w -> focus w >> windows W.shiftMaster))
+    , ((modm, button2), \w -> focus w >> windows W.shiftMaster)
 
     -- mod-button3, Set the window to floating mode and resize by dragging
-    , ((modm, button3), (\w -> focus w >> mouseResizeWindow w
-                                       >> windows W.shiftMaster))
+    , ((modm, button3), \w -> focus w >> mouseResizeWindow w
+                                       >> windows W.shiftMaster)
 
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
     ]
@@ -248,12 +255,50 @@ myLogHook = return ()
 --
 -- By default, do nothing.
 -- Check ./xmonad/xmonad-session-rc for Ubuntu install workaround (add the commands to there also)
-myStartupHook = return ()
-  --do
-  -- spawnOnce "nitrogen --restore &"
-  -- spawnOnce "keepassxc &"
-  -- spawnOnce "rescuetime &"
-  -- spawnOnce "xscreensaver -no-splash &"
+myStartupHook =
+  do
+    spawnOnce "killall -r polybar; sleep 1;"
+    spawnOnce "polybar top&"
+
+------------------------------------------------------------------------
+-- Polybar bindings
+mkDbusClient :: IO D.Client
+mkDbusClient = do
+  dbus <- D.connectSession
+  D.requestName dbus (D.busName_ "org.xmonad.log") opts
+  return dbus
+ where
+  opts = [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
+
+-- Emit a DBus signal on log updates
+dbusOutput :: D.Client -> String -> IO ()
+dbusOutput dbus str =
+  let opath  = D.objectPath_ "/org/xmonad/Log"
+      iname  = D.interfaceName_ "org.xmonad.Log"
+      mname  = D.memberName_ "Update"
+      signal = D.signal opath iname mname
+      body   = [D.toVariant $ UTF8.decodeString str]
+  in  D.emit dbus $ signal { D.signalBody = body }
+
+polybarHook :: D.Client -> PP
+polybarHook dbus =
+  let wrapper c s | s /= "NSP" = wrap ("%{F" <> c <> "} ") " %{F-}" s
+                  | otherwise  = mempty
+      blue   = "#2E9AFE"
+      gray   = "#7F7F7F"
+      orange = "#ea4300"
+      purple = "#9058c7"
+      red    = "#722222"
+  in  def { ppOutput          = dbusOutput dbus
+          , ppCurrent         = wrapper blue
+          , ppVisible         = wrapper gray
+          , ppUrgent          = wrapper orange
+          , ppHidden          = wrapper gray
+          , ppHiddenNoWindows = wrapper red
+          , ppTitle           = shorten 100 . wrapper purple
+          }
+
+myPolybarLogHook dbus = myLogHook <+> dynamicLogWithPP (polybarHook dbus)
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
@@ -261,7 +306,7 @@ myStartupHook = return ()
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
-  xmproc <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
+  dbus <- mkDbusClient
   xmonad $ ewmh (docks def {
       -- simple stuff
         terminal           = myTerminal,
@@ -278,22 +323,12 @@ main = do
         mouseBindings      = myMouseBindings,
 
       -- hooks, layouts
-        layoutHook         = smartBorders $ myLayout,
+        layoutHook         = smartBorders myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
-        logHook            = myLogHook <+> dynamicLogWithPP xmobarPP
-                        { ppOutput = hPutStrLn xmproc
-                        , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
-                        , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#82AAFF" "" . wrap "*" ""   -- Hidden workspaces in xmobar
-                        , ppHiddenNoWindows = xmobarColor "#c792ea" ""        -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#b3afc2" "" . shorten 60     -- Title of active window in xmobar
-                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
-                        , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-                        },
+        logHook            = myPolybarLogHook dbus,
         startupHook        = myStartupHook
     } `additionalKeysP` additionalKeys)
-
 
 -- | Finally, a copy of the default bindings in simple textual tabular format.
 help :: String

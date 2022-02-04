@@ -43,11 +43,12 @@
     wget
     unzip
     git
+    psmisc
   ];
 
-  services.logind.lidSwitch = "suspend-then-hibernate";
+  bluetooth.enable = true;
 
-  #services.xserver.desktopManager.gnome.enable = true;
+  services.logind.lidSwitch = "suspend-then-hibernate";
 
   nixpkgs.config.allowUnfree = true;
 

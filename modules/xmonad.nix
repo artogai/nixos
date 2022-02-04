@@ -1,13 +1,10 @@
 { config, lib, pkgs, ... }:
 {
+  programs.dconf.enable = true;
+
   services = {
     gnome.gnome-keyring.enable = true;
     upower.enable = true;
-
-    #dbus = {
-    #  enable = true;
-    #  packages = [ pkgs.gnome3.dconf ];
-    #};
 
     xserver = {
       enable = true;
@@ -18,7 +15,6 @@
         enable = true;
         enableContribAndExtras = true;
       };
-
     };
   };
 

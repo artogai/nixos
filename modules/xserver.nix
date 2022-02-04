@@ -11,7 +11,7 @@
       services.xserver = {
         enable = true;
         layout = "us,ru";
-        xkbOptions = "grp:win_space_toggle";
+        xkbOptions = "grp:caps_toggle";
         useGlamor = true;
       };
 
@@ -54,12 +54,12 @@
         '';
       in {
 
-      services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
-      environment.systemPackages = [ nvidia-offload ];
+        services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
+        environment.systemPackages = [ nvidia-offload ];
 
-      hardware.nvidia.prime = {
-        offload.enable = lib.mkDefault true;
-      };
+        hardware.nvidia.prime = {
+          offload.enable = lib.mkDefault true;
+        };
       }))
   ];
 }

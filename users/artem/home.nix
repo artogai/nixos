@@ -2,17 +2,29 @@
 {
   imports = [
     ../../dotfiles/git
-    ../../dotfiles/rofi
     ../../dotfiles/xmonad
+    ../../dotfiles/themes
   ];
 
+  home.keyboard = {
+    layout = "us,ru";
+    options = [ "grp:caps_toggle" ];
+  };
+
   programs.java.enable = true;
+
+  #xorg.xrandr
+  #arandr
+  #pkgs.gnome
+  #eog            # image viewer
+  #evince         # pdf reader
+  #gnome-calendar # calendar
+  #nautilus       # file manager
 
   home.packages = with pkgs; [
     alacritty
     firefox
     tdesktop
-    gnome.nautilus
     keepassxc
     vlc
     transmission
@@ -23,6 +35,10 @@
     visualvm
     vscode
 
+    networkmanager_dmenu
+    pavucontrol
+    rofi-power-menu
+
     (jetbrains.idea-community.overrideAttrs (oldAttrs: rec {
       name = "idea-community-${version}";
       version = "2021.3.2";
@@ -32,4 +48,12 @@
       };
     }))
   ];
+
+  #https://github.com/nix-community/home-manager/issues/2064
+  systemd.user.targets.tray = {
+		Unit = {
+			Description = "Home Manager System Tray";
+			Requires = [ "graphical-session-pre.target" ];
+		};
+	};
 }

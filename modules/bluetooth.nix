@@ -1,5 +1,7 @@
 { config, lib, ... }:
-{
+let
+  cfg = config.bluetooth;
+in {
   options = {
     bluetooth.enable = lib.mkOption {
       type = lib.types.bool;
@@ -10,10 +12,10 @@
       };
   };
 
-  config = {
-    services.blueman.enable = config.bluetooth.enable;
+  config = lib.mkIf cfg.enable {
+    services.blueman.enable = true;
 
-    hardware.bluetooth = lib.mkIf config.bluetooth.enable {
+    hardware.bluetooth = {
       enable = true;
       hsphfpd.enable = true;
       settings = {
