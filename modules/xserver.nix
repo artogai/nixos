@@ -1,9 +1,10 @@
 { config, pkgs, lib, ... }:
 {
   options = {
-    gpu = lib.mkOption {
+    hardware.gpu = lib.mkOption {
       type = lib.types.enum [ "amd" "nvidia" ];
     };
+    hardware.touchpad.enable = lib.mkEnableOption "touchpad";
   };
 
   config = lib.mkMerge [
@@ -13,6 +14,14 @@
         layout = "us,ru";
         xkbOptions = "grp:caps_toggle";
         useGlamor = true;
+
+        libinput = {
+          enable = true;
+          touchpad = lib.mkIf config.hardware.touchpad.enable {
+            tapping = true;
+            disableWhileTyping = true;
+          };
+        };
       };
 
       hardware.opengl = {
@@ -26,7 +35,7 @@
         ];
       };
     }
-    (lib.mkIf (config.gpu == "amd") {
+    (lib.mkIf (config.hardware.gpu == "amd") {
       boot.initrd.kernelModules = [ "amdgpu" ];
       services.xserver.videoDrivers = [ "amdgpu" ];
 
@@ -43,7 +52,7 @@
       # remove after bios update 1.13
       boot.kernelParams = ["iommu=soft"];
     })
-    (lib.mkIf (config.gpu == "nvidia")
+    (lib.mkIf (config.hardware.gpu == "nvidia")
       (let
         nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
           export __NV_PRIME_RENDER_OFFLOAD=1

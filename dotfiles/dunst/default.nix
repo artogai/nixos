@@ -12,7 +12,8 @@
     settings = {
       global = {
         monitor = 0;
-        geometry = "600x50-50+65";
+        width = 300;
+        height = 50;
         shrink = "yes";
         transparency = 10;
         padding = 16;

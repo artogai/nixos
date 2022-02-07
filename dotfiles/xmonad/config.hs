@@ -12,14 +12,11 @@ import XMonad.Layout.NoBorders
 import XMonad.Util.EZConfig (additionalKeysP)
 
 import qualified XMonad.StackSet as W
-import qualified Data.Map        as M
-
-import XMonad.Hooks.EwmhDesktops -- from RescueTime support
+import qualified Data.Map        as M -- from RescueTime support
 
 import qualified Codec.Binary.UTF8.String              as UTF8
 import qualified DBus                                  as D
 import qualified DBus.Client                           as D
-import           XMonad.Hooks.DynamicLog
 
 import System.IO
 import System.Exit (exitSuccess)
@@ -255,10 +252,7 @@ myLogHook = return ()
 --
 -- By default, do nothing.
 -- Check ./xmonad/xmonad-session-rc for Ubuntu install workaround (add the commands to there also)
-myStartupHook =
-  do
-    spawnOnce "killall -r polybar; sleep 1;"
-    spawnOnce "polybar top&"
+myStartupHook = return ()
 
 ------------------------------------------------------------------------
 -- Polybar bindings

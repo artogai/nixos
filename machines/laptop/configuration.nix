@@ -9,12 +9,10 @@
       ../../modules/fonts.nix
       ../../modules/printing.nix
       ../../modules/sound.nix
-      ../../modules/touchpad.nix
       ../../modules/bluetooth.nix
       ../../modules/xserver.nix
       ../../modules/xmonad.nix
-      ../../modules/flakes.nix
-      ../../modules/auto_gc.nix
+      ../../modules/nix.nix
     ];
 
   users.users.artem = {
@@ -46,7 +44,12 @@
     psmisc
   ];
 
-  bluetooth.enable = true;
+  hardware = {
+    gpu = "amd";
+    cpu.amd.updateMicrocode = true;
+    touchpad.enable = true;
+    bluetooth.enable = true;
+  };
 
   services.logind.lidSwitch = "suspend-then-hibernate";
 

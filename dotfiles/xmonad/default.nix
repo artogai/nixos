@@ -1,19 +1,31 @@
-{ pkgs, ... }:
-let
-  #hdmiExtra = ''
-  #  ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-A-0 --mode 3840x2160 --rate 30.00
-  #'';
-in
+{ config, pkgs, ... }:
 {
   imports = [
-    ../polybar
-    ../rofi
-    ../picom
-    ../dunst
+    ../rofi       # window switcher
+    ../picom      # compositor
+    ../dunst      # notification manager
+    ../polybar    # status bar
+    ../nm-dmenu   # networkmanager front end
+  ];
+
+  home.packages = with pkgs; with pkgs.gnome; [
+    xorg.xrandr         # screens configuration
+    arandr              # frontent for xrandr
+
+                        # pkgs.gnome
+    eog                 # image viewer
+    evince              # pdf reader
+    gnome-calendar      # calendar
+    nautilus            # file manager
+
+    rofi-power-menu     # power menu via rofi
+    pavucontrol         # pulse audio volume control
   ];
 
   xsession = {
     enable = true;
+
+    initExtra = config.start_polybar;
 
     windowManager.xmonad = {
       enable = true;

@@ -13,14 +13,6 @@
 
   programs.java.enable = true;
 
-  #xorg.xrandr
-  #arandr
-  #pkgs.gnome
-  #eog            # image viewer
-  #evince         # pdf reader
-  #gnome-calendar # calendar
-  #nautilus       # file manager
-
   home.packages = with pkgs; [
     alacritty
     firefox
@@ -34,10 +26,6 @@
     ghc
     visualvm
     vscode
-
-    networkmanager_dmenu
-    pavucontrol
-    rofi-power-menu
 
     (jetbrains.idea-community.overrideAttrs (oldAttrs: rec {
       name = "idea-community-${version}";
