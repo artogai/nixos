@@ -27,7 +27,7 @@
     firewall = {
       enable = true;
       allowedTCPPorts = lib.mkForce [ 30951 ];
-      allowedUDPPorts = lib.mkForce [];
+      allowedUDPPorts = lib.mkForce [ ];
       allowPing = false;
     };
   };
@@ -69,7 +69,7 @@
   };
 
 
-  environment.defaultPackages = lib.mkForce [];
+  environment.defaultPackages = lib.mkForce [ ];
 
 
   environment.systemPackages = with pkgs; [

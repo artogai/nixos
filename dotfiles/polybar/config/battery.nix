@@ -1,13 +1,13 @@
 {
   "module/battery" = {
-    type =  "internal/battery";
+    type = "internal/battery";
 
     full-at = 99;
 
     #Use the following command to list batteries and adapters:
     #   ls -1 /sys/class/power_supply/
-    battery = "\${env:BATTERY}";
-    adapter = "\${env:ADAPTER}";
+    battery = "BAT0";
+    adapter = "AC";
 
     # Available tags:
     #   <label-charging> (default)

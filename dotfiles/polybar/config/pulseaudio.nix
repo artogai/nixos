@@ -24,7 +24,7 @@
     # Available tokens:
     #   %percentage% (default)
     #   %decibels%
-    label-muted =" ﱝ";
+    label-muted = " ﱝ";
 
     # Only applies if <ramp-volume> is used
     ramp-volume-0 = "奄";

@@ -6,7 +6,8 @@ let
       "Iosevka"
     ];
   };
-in {
+in
+{
   fonts = {
     fontDir.enable = true;
     fonts = with pkgs; [

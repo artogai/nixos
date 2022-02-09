@@ -2,9 +2,10 @@
 
 {
   imports =
-    [ ./hardware-configuration.nix
+    [
+      ./hardware-configuration.nix
 
-      ../../modules/boot_efi.nix
+      ../../modules/boot_systemd.nix
       ../../modules/time.nix
       ../../modules/fonts.nix
       ../../modules/printing.nix
@@ -17,7 +18,7 @@
 
   users.users.artem = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "video" "audio" "disk" "networkmanager" ];
     uid = 1000;
   };
 
@@ -43,7 +44,6 @@
     htop
     wget
     unzip
-    git
     psmisc
   ];
 

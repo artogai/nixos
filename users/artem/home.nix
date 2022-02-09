@@ -27,6 +27,7 @@
     ghc
     visualvm
     vscode
+    nixpkgs-fmt
 
     (jetbrains.idea-community.overrideAttrs (oldAttrs: rec {
       name = "idea-community-${version}";
@@ -40,9 +41,9 @@
 
   #https://github.com/nix-community/home-manager/issues/2064
   systemd.user.targets.tray = {
-		Unit = {
-			Description = "Home Manager System Tray";
-			Requires = [ "graphical-session-pre.target" ];
-		};
-	};
+    Unit = {
+      Description = "Home Manager System Tray";
+      Requires = [ "graphical-session-pre.target" ];
+    };
+  };
 }

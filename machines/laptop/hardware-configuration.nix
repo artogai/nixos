@@ -2,7 +2,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -18,17 +19,18 @@
   };
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/ad917513-51bc-45be-b6c6-8ffdeaaec1f4";
+    {
+      device = "/dev/disk/by-uuid/ad917513-51bc-45be-b6c6-8ffdeaaec1f4";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/BA8D-60B0";
+    {
+      device = "/dev/disk/by-uuid/BA8D-60B0";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/7a2b69f1-771d-407c-a6ac-3215339d6668"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/7a2b69f1-771d-407c-a6ac-3215339d6668"; }];
 
 }

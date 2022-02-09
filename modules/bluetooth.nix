@@ -1,7 +1,8 @@
 { config, lib, ... }:
 let
   enable = config.hardware.bluetooth.enable;
-in {
+in
+{
   config = lib.mkIf enable {
     services.blueman.enable = true;
 

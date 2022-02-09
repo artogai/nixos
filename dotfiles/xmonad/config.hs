@@ -20,6 +20,7 @@ import qualified DBus.Client                           as D
 
 import System.IO
 import System.Exit (exitSuccess)
+import Graphics.X11.ExtraTypes.XF86
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
@@ -72,6 +73,13 @@ additionalKeys =
     , ("M-<Esc>", spawn "betterlockscreen -l dim")
     , ("M-b", sendMessage ToggleStruts)
     , ("M-S-/", spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
+    -- Fn Keys
+    --, ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ +1.5%")
+    --, ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@  -1.5%")
+    --, ("<XF86AudioMute>", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+
+    --, ("<XF86MonBrightnessUp>", spawn "lux -a 5%")
+    --, ("<XF86MonBrightnessDown>", spawn "lux -s 5%")
   ]
 
 ------------------------------------------------------------------------

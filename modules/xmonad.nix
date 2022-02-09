@@ -9,7 +9,7 @@
     xserver = {
       enable = true;
 
-      displayManager.defaultSession = "none+xmonad";
+      #displayManager.defaultSession = "none+xmonad";
 
       windowManager.xmonad = {
         enable = true;
