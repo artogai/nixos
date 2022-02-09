@@ -8,19 +8,22 @@ let
   date = import ./config/date.nix;
   wifi = import ./config/wifi.nix { inherit pkgs; };
   pulseaudio = import ./config/pulseaudio.nix { inherit pkgs; };
+  backlight = import ./config/backlight.nix;
   battery = import ./config/battery.nix;
   powermenu = import ./config/powermenu.nix { inherit pkgs; };
 
   wifiInterface = pkgs.callPackage ./script/get-wifi.nix { };
+  backlightCard = pkgs.callPackage ./script/get-backlight.nix { };
 in
 {
   config = {
     services.polybar = {
       enable = true;
       package = pkgs.polybarFull;
-      settings = config // colors // xmonad // xkeyboard // date // wifi // battery // pulseaudio // battery // powermenu;
+      settings = config // colors // xmonad // xkeyboard // date // wifi // battery // pulseaudio // backlight // battery // powermenu;
       script = ''
         export WIFI_INTERFACE=$(${wifiInterface}/bin/get-wifi)
+        export BACKLIGHT_CARD=$(${backlightCard}/bin/get-backlight)
         polybar top&
       '';
     };

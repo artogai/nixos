@@ -24,10 +24,13 @@
 
     sbt
     scala
-    ghc
     visualvm
+
     vscode
     nixpkgs-fmt
+
+    ghc
+    haskellPackages.stylish-haskell
 
     (jetbrains.idea-community.overrideAttrs (oldAttrs: rec {
       name = "idea-community-${version}";

@@ -26,7 +26,7 @@
     font-0 = "Iosevka Nerd Font:style=Medium:size=12;2";
 
     modules-left = "xmonad";
-    modules-right = "xkeyboard date wlan pulseaudio battery powermenu";
+    modules-right = "xkeyboard date wlan pulseaudio backlight battery powermenu";
 
     tray-position = "right";
 

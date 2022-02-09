@@ -56,6 +56,7 @@
 
   systemd.sleep.extraConfig = "HibernateDelaySec=1h";
 
+  programs.light.enable = true;
   services = {
     fstrim.enable = true; # enable periodic SSD TRIM of mounted partitions in background.
     logind.lidSwitch = "suspend-then-hibernate";
