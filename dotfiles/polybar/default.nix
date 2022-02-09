@@ -11,7 +11,7 @@ let
   battery = import ./config/battery.nix;
   powermenu = import ./config/powermenu.nix { inherit pkgs; };
 
-  wifiInterface = pkgs.callPackage ./script/get_wifi.nix { };
+  wifiInterface = pkgs.callPackage ./script/get-wifi.nix { };
 in
 {
   config = {
@@ -20,7 +20,7 @@ in
       package = pkgs.polybarFull;
       settings = config // colors // xmonad // xkeyboard // date // wifi // battery // pulseaudio // battery // powermenu;
       script = ''
-        export WIFI_INTERFACE=$(${wifiInterface}/bin/get_wifi)
+        export WIFI_INTERFACE=$(${wifiInterface}/bin/get-wifi)
         polybar top&
       '';
     };

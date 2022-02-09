@@ -1,4 +1,4 @@
 { pkgs }:
-pkgs.writeShellScriptBin "get_wifi" ''
+pkgs.writeShellScriptBin "get-wifi" ''
   ls /sys/class/ieee80211/*/device/net/
 ''

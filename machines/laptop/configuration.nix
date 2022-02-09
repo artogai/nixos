@@ -5,7 +5,7 @@
     [
       ./hardware-configuration.nix
 
-      ../../modules/boot_systemd.nix
+      ../../modules/boot-systemd.nix
       ../../modules/time.nix
       ../../modules/fonts.nix
       ../../modules/printing.nix
