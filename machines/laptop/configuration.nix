@@ -24,7 +24,10 @@
   networking = {
     hostName = "laptop";
 
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi.powersave = true;
+    };
 
     useDHCP = false;
     interfaces = {
@@ -51,7 +54,12 @@
     bluetooth.enable = true;
   };
 
-  services.logind.lidSwitch = "suspend-then-hibernate";
+  systemd.sleep.extraConfig = "HibernateDelaySec=1h";
+
+  services = {
+    fstrim.enable = true; # enable periodic SSD TRIM of mounted partitions in background.
+    logind.lidSwitch = "suspend-then-hibernate";
+  };
 
   nixpkgs.config.allowUnfree = true;
 

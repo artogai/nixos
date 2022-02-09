@@ -1,12 +1,11 @@
 { pkgs }:
 let
-  callDmenu = "${pkgs.networkmanager_dmenu}bin/networkmanager_dmenu";
+  callDmenu = "${pkgs.networkmanager_dmenu}/bin/networkmanager_dmenu";
 in
 {
   "module/wlan" = {
     type = "internal/network";
-    #interface = "\${env:WIFI_INTERFACE}";
-    interface = "wlp3s0";
+    interface = "\${env:WIFI_INTERFACE}";
     interval = 3.0;
 
     format-connected = "<label-connected>";

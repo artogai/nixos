@@ -68,115 +68,11 @@ myFocusedBorderColor = "#ff0000"
 ---------- My additional keys --------
 additionalKeys :: [(String, X ())]
 additionalKeys =
-  -- APPS
-  [ ("M-S-<Return>", spawn myTerminal)
-    -- System control
-    , ("M-S-m d d", spawn (myTerminal
-                         ++ " -- autorandr --change &")) -- automatically load first detected configuration
-    , ("M-S-m d h", spawn (myTerminal
-                         ++ " -- autorandr horizontal &"))
-    , ("M-S-m d v", spawn (myTerminal
-                         ++ " -- autorandr vertical &"))
-    , ("M-S-m d c", spawn (myTerminal
-                         ++ " -- autorandr common &"))
-    , ("M-S-m d p", spawn (myTerminal
-                         ++ " -- autorandr primary &"))
-    , ("M-S-m d e", spawn (myTerminal
-                         ++ " -- autorandr external &"))
-    , ("M-S-m b", spawn (myTerminal
-                        ++ " -- bluetoothctl"))
-    , ("M-S-m a", spawn (myTerminal
-                        ++ " -- alsamixer"))
-    , ("M-S-i", spawn "xbrightness +5000")
-    , ("M-S-o", spawn "xbrightness -5000")
-    -- unsorted moving most of others
-
-    -- launch rofi
-    , ("M-p", spawn myAppLauncher)
-    -- close focused window
-    , ("M-S-c", kill)
-     -- Rotate through the available layout algorithms
-    , ("M-<Space>", sendMessage NextLayout)
-    -- Resize viewed windows to the correct size
-    , ("M-n", refresh)
-    -- Move focus between windows
-    , ("M-j", windows W.focusDown)
-    , ("M-k", windows W.focusUp  )
-    , ("M-m", windows W.focusMaster  )
-    -- Swap the focused window
-    -- , ("M-S-<Return>", windows W.swapMaster)
-    , ("M-S-j", windows W.swapDown  )
-    , ("M-S-k", windows W.swapUp    )
-    -- Shrink the master area
-    , ("M-h", sendMessage Shrink)
-    -- Expand the master area
-    , ("M-l", sendMessage Expand)
-    -- Push window back into tiling
-    , ("M-t", withFocused $ windows . W.sink)
-    -- Increment the number of windows in the master area
-    , ("M-,", sendMessage (IncMasterN 1))
-    -- Deincrement the number of windows in the master area
-    , ("M-.", sendMessage (IncMasterN (-1)))
-    -- Toggle the status bar gap
-    -- Use this binding with avoidStruts from Hooks.ManageDocks.
-    -- See also the statusBar function from Hooks.DynamicLog.
-    --
-    -- , ("M-b", sendMessage ToggleStruts)
-    -- Quit xmonad
-    , ("M-S-q", io exitSuccess)
-    -- Restart xmonad
-    , ("M-q", spawn "xmonad --recompile; xmonad --restart")
-    -- Run xmessage with a summary of the default keybindings (useful for beginners)
+  [   ("M-p", spawn myAppLauncher)
+    , ("M-<Esc>", spawn "betterlockscreen -l dim")
+    , ("M-b", sendMessage ToggleStruts)
     , ("M-S-/", spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
   ]
-
-------------------------------------------------------------------------
--- Key bindings. Add, modify or remove key bindings here.
---
-myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
-
-    [
-    -- --  Reset the layouts on the current workspace to default
-        ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
-    ]
-    ++
-
-    --
-    -- mod-[1..9], Switch to workspace N
-    -- mod-shift-[1..9], Move client to workspace N
-    --
-    [((m .|. modm, k), windows $ f i)
-        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
-    ++
-
-    --
-    -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
-    -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
-    --
-    [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
-        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
-
-
-------------------------------------------------------------------------
--- Mouse bindings: default actions bound to mouse events
---
-myMouseBindings XConfig {XMonad.modMask = modm} = M.fromList
-
-    -- mod-button1, Set the window to floating mode and move by dragging
-    [ ((modm, button1), \w -> focus w >> mouseMoveWindow w
-                                       >> windows W.shiftMaster)
-
-    -- mod-button2, Raise the window to the top of the stack
-    , ((modm, button2), \w -> focus w >> windows W.shiftMaster)
-
-    -- mod-button3, Set the window to floating mode and resize by dragging
-    , ((modm, button3), \w -> focus w >> mouseResizeWindow w
-                                       >> windows W.shiftMaster)
-
-    -- you may also bind events to the mouse scroll wheel (button4 and button5)
-    ]
 
 ------------------------------------------------------------------------
 -- Layouts:
@@ -189,7 +85,7 @@ myMouseBindings XConfig {XMonad.modMask = modm} = M.fromList
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
+myLayout = avoidStruts (Mirror tiled ||| Full ||| tiled)
   where
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
@@ -311,11 +207,6 @@ main = do
         workspaces         = myWorkspaces,
         normalBorderColor  = myNormalBorderColor,
         focusedBorderColor = myFocusedBorderColor,
-
-      -- key bindings
-        keys               = myKeys,
-        mouseBindings      = myMouseBindings,
-
       -- hooks, layouts
         layoutHook         = smartBorders myLayout,
         manageHook         = myManageHook,

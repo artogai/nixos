@@ -20,6 +20,7 @@
     keepassxc
     vlc
     transmission
+    discord
 
     sbt
     scala

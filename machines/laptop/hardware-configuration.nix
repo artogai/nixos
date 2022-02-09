@@ -5,10 +5,11 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+  boot.kernelModules = [ "acpi_call" "kvm-amd" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 
   boot.initrd.luks.devices.crypted = {
     device = "/dev/disk/by-partuuid/6e0a972c-0a49-454e-84db-96f39a5c3a0d";
