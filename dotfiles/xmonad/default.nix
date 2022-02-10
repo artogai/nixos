@@ -7,6 +7,7 @@
     ../polybar # status bar
     ../screen-locker # screen locker
     ../nm-dmenu # networkmanager front end
+    ../udiskie # mountable media
   ];
 
   home.packages = with pkgs; with pkgs.gnome; [
