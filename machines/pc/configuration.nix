@@ -23,17 +23,14 @@
   };
 
   networking = {
-    hostName = "laptop";
+    hostName = "pc";
 
-    networkmanager = {
-      enable = true;
-      wifi.powersave = true;
-    };
+    networkmanager.enable = true;
 
     useDHCP = false;
     interfaces = {
-      enp2s0.useDHCP = true;
-      wlp3s0.useDHCP = true;
+      enp27s0.useDHCP = true;
+      wlp28s0.useDHCP = true;
     };
 
     nameservers = [ "1.1.1.1" ];
@@ -47,19 +44,15 @@
   ];
 
   hardware = {
-    gpu = "amd";
+    gpu = "nvidia";
     cpu.amd.updateMicrocode = true;
-    touchpad.enable = true;
     bluetooth.enable = true;
   };
 
   systemd.sleep.extraConfig = "HibernateDelaySec=1h";
 
   programs.light.enable = true;
-  services = {
-    fstrim.enable = true; # enable periodic SSD TRIM of mounted partitions in background.
-    logind.lidSwitch = "suspend-then-hibernate";
-  };
+  services.fstrim.enable = true; # enable periodic SSD TRIM of mounted partitions in background.
 
   nixpkgs.config.allowUnfree = true;
 

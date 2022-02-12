@@ -1,9 +1,11 @@
 { pkgs, ... }:
 {
   imports = [
-    ../../dotfiles/git
     ../../dotfiles/xmonad
+    ../../dotfiles/keyboard
     ../../dotfiles/themes
+    ../../dotfiles/git
+    ../../dotfiles/java
   ];
 
   home.packages = with pkgs; [
@@ -20,21 +22,15 @@
     visualvm
 
     vscode
+    jetbrains.idea-community
     nixpkgs-fmt
 
     ghc
     haskellPackages.stylish-haskell
 
-    jetbrains.idea-community
+    zip
+    unzip
   ];
-
-  programs.java.enable = true;
-
-  home.keyboard = {
-    layout = "us,ru";
-    options = [ "grp:caps_toggle" ];
-  };
-
 
   #https://github.com/nix-community/home-manager/issues/2064
   systemd.user.targets.tray = {

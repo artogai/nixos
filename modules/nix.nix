@@ -6,7 +6,7 @@
     gc = {
       automatic = true;
       dates = "12:00";
-      options = "--delete-older-than 30d";
+      options = "--delete-older-than 7d";
     };
 
     package = pkgs.nixFlakes;

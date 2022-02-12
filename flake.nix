@@ -30,6 +30,20 @@
           ];
           specialArgs = { inherit inp; };
         };
+        pc = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./machines/pc/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.artem = import ./users/artem/home.nix;
+              };
+            }
+          ];
+        };
       };
     };
 }
