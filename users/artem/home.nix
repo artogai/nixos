@@ -30,6 +30,10 @@
 
     zip
     unzip
+
+    sops
+    age
+    ssh-to-age
   ];
 
   #https://github.com/nix-community/home-manager/issues/2064

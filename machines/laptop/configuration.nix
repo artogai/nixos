@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
@@ -14,6 +14,8 @@
       ../../modules/xserver.nix
       ../../modules/xmonad.nix
       ../../modules/nix.nix
+      ../../modules/sops.nix
+      ../../modules/openvpn
     ];
 
   users.users.artem = {
