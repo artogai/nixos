@@ -4,23 +4,14 @@
   imports =
     [
       ./vpsadminos.nix
+      ../../modules/time.nix
     ];
 
 
-  time.timeZone = "Europe/Moscow";
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  system = {
-    autoUpgrade = {
-      enable = true;
-      allowReboot = true;
-      channel = "https://nixos.org/channels/nixos-21.11-small";
-    };
-  };
-
 
   networking = {
-    hostName = "vps";
+    hostName = "chekhov";
+
     useDHCP = false;
     interfaces.venet0.useDHCP = true;
 
@@ -32,32 +23,34 @@
     };
   };
 
-
   users = {
     mutableUsers = false;
-
     users = {
-      vpsadmin = {
+      artem = {
         uid = 1000;
         isNormalUser = true;
         extraGroups = [ "wheel" ];
-        openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILC+M6MuUQ3rrd+KWw/GRAQHVjeSlQCtXD+teGy8Hecz" ];
-        hashedPassword = "";
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHKmokskRPOx45Iaed6pX2BEHyBjAvBCqrfTY5Z5tClm"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIt5U3CZ+7d/hPDyUhyEnQxRk8iLJoLosuUj3jvWVRVH"
+        ];
+        passwordFile = config.sops.secrets."passwords/chekhov".path;
       };
+      root.openssh.authorizedKeys.keys = config.users.users.artem.openssh.authorizedKeys.keys;
     };
   };
 
   services = {
-    fail2ban.enable = true;
+    fail2ban.enable = false;
 
     openssh = {
       enable = true;
       ports = [ 30951 ];
       openFirewall = false;
-      permitRootLogin = "no";
+      permitRootLogin = "prohibit-password";
       passwordAuthentication = false;
       allowSFTP = false;
-      challengeResponseAuthentication = false;
+      kbdInteractiveAuthentication = false;
       extraConfig = ''
         AllowTcpForwarding yes
         X11Forwarding no
@@ -68,20 +61,11 @@
     };
   };
 
-
   environment.defaultPackages = lib.mkForce [ ];
-
 
   environment.systemPackages = with pkgs; [
     vim
   ];
 
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.11"; # Did you read the comment?
+  system.stateVersion = "21.11";
 }

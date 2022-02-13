@@ -7,6 +7,8 @@
       generateKey = true;
     };
 
+    gnupg.sshKeyPaths = [];
+
     secrets = {
       "openvnp/home/auth-user-pass" = { };
       "openvnp/home/ca" = { };

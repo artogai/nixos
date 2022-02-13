@@ -14,6 +14,6 @@ let
 in
 {
   services.openvpn.servers = {
-    ee-udp = makeVpn "ee" [ 1194 443 5060 4569 80 ] ; # estonia
+    ee-udp = makeVpn "ee" [ 1194 443 5060 4569 80 ]; # estonia
   };
 }

@@ -56,7 +56,5 @@
   programs.light.enable = true;
   services.fstrim.enable = true; # enable periodic SSD TRIM of mounted partitions in background.
 
-  nixpkgs.config.allowUnfree = true;
-
   system.stateVersion = "21.11";
 }
