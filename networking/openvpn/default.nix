@@ -1,5 +1,7 @@
 { config, lib, ... }:
+
 with builtins;
+
 let
   auth-user-pass = config.sops.secrets."openvnp/home/auth-user-pass".path;
   ca = config.sops.secrets."openvnp/home/ca".path;
@@ -13,6 +15,11 @@ let
   };
 in
 {
+  sops.secrets = {
+    "openvnp/home/auth-user-pass" = { };
+    "openvnp/home/ca" = { };
+    "openvnp/home/tls-auth" = { };
+  };
   services.openvpn.servers = {
     ee-udp = makeVpn "ee" [ 1194 443 5060 4569 80 ]; # estonia
   };

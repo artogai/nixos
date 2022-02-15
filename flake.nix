@@ -14,79 +14,21 @@
     deploy-rs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, deploy-rs, ... }:
-    let
-      makeOS = cfgPath:
-        nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            cfgPath
-            sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.artem = import ./users/artem/home.nix;
-              };
-              nixpkgs = {
-                config.allowUnfree = true;
-                overlays = [ (import ./nix/overlays.nix nixpkgs) ];
-              };
-              sops.secrets."passwords/home" = { };
-            }
-            {
-              home-manager.users.artem.home.packages = [
-                deploy-rs.defaultPackage.x86_64-linux
-              ];
-            }
-          ];
-        };
-    in
-    {
-      nixosConfigurations = {
-        laptop = makeOS ./machines/laptop/configuration.nix;
+  outputs = { self, nixpkgs, home-manager, sops-nix, deploy-rs } @ inp:
+    with builtins;
+    with nixpkgs.lib;
+    rec {
+      makeHosts = import ./nix/make-hosts.nix inp;
 
-        pc = makeOS ./machines/pc/configuration.nix;
+      hosts = makeHosts [
+        { host = "pc"; home = "artem"; }
+        { host = "laptop"; home = "artem"; }
+        { host = "chekhov"; deploy = true; }
+      ];
 
-        chekhov = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./machines/chekhov/configuration.nix
-            sops-nix.nixosModules.sops
-            {
-              nixpkgs = {
-                config.allowUnfree = true;
-                #overlays = [ (import ./nix/overlays.nix nixpkgs) ];
-              };
+      nixosConfigurations = mapAttrs (h: desc: desc.cfg) hosts;
+      deploy.nodes = mapAttrs (h: desc: desc.deploy) hosts;
 
-              sops.defaultSopsFile = ./secrets/default.yaml;
-              sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-              #sops.age.keyFile = "/var/lib/sops-nix/key.txt";
-              #sops.age.generateKey = true;
-              sops.gnupg.sshKeyPaths = [ ];
-              sops.secrets."passwords/chekhov" = { };
-            }
-          ];
-        };
-      };
-
-      deploy = {
-        magicRollback = true;
-        nodes = {
-          chekhov = {
-            hostname = "chekhov";
-            profiles = {
-              system = {
-                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.chekhov;
-                user = "root";
-                sshUser = "root";
-              };
-            };
-          };
-        };
-      };
-
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+      checks = mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
 }

@@ -28,9 +28,11 @@
     ghc
     haskellPackages.stylish-haskell
 
+    psmisc
     zip
     unzip
 
+    deploy-rs.deploy-rs
     sops
     age
     ssh-to-age
