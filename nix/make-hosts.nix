@@ -37,17 +37,23 @@ let
       modules = systemModules ++ homeModules;
     in
     {
-      ${host} = {
-        cfg = nixosSystem { inherit system modules; };
+      ${host} =
+        let
+          cfg = nixosSystem { inherit system modules; };
+        in
+        {
+          cfg = cfg;
 
-        deploy = mkIf deploy {
-          hostName = host;
-          profiles.system = {
-            path = deploy-rs.lib.${system}.activate.nixos cfg;
-            sshUser = "root";
+          deploy = optionalAttrs deploy {
+            hostname = host;
+            profiles = {
+              system = {
+                path = deploy-rs.lib.${system}.activate.nixos cfg;
+                sshUser = "root";
+              };
+            };
           };
         };
-      };
     };
 in
-  lists.foldr lib.mergeAttrs {} (map makeHost hosts)
+lists.foldr lib.mergeAttrs { } (map makeHost hosts)
