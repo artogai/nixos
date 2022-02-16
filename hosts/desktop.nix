@@ -24,4 +24,5 @@
   networking.networkmanager.enable = true;
   systemd.sleep.extraConfig = "HibernateDelaySec=1h";
   sops.age.keyFile = "/home/artem/.config/sops/age/keys.txt";
+  services.gvfs.enable = true;
 }

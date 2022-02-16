@@ -14,7 +14,7 @@
     tdesktop
     keepassxc
     vlc
-    transmission
+    transmission-gtk
     discord
 
     sbt
