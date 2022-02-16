@@ -10,8 +10,8 @@
 
   network = {
     hostName = "laptop";
-    wlan = "wlp28s0";
-    eth = "enp27s0";
+    wlan = "wlp3s0";
+    eth = "enp2s0";
   };
 
   hardware = {

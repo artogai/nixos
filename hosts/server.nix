@@ -3,6 +3,8 @@
 {
   imports = [
     ./host.nix
+    ../networking/firewall.nix
+    ../networking/fail2ban.nix
     ../networking/openssh.nix
   ];
 
