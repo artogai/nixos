@@ -36,6 +36,8 @@
     sops
     age
     ssh-to-age
+    easyrsa
+    git-crypt
   ];
 
   #https://github.com/nix-community/home-manager/issues/2064

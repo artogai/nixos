@@ -1,15 +1,13 @@
 { lib }:
 
-with builtins;
-with lib.strings;
-
 let
+  inherit (lib.strings) concatMapStringsSep;
   servers = country: ports: concatMapStringsSep "\n" (p: "remote " + country + ".protonvpn.com " + (toString p)) ports;
 in
-{ country, ports, auth-user-pass, ca, tls-auth }:
+protocol: country: ports: auth-user-pass: ca: tls-auth:
 ''client
 dev tun
-proto udp
+proto ${protocol}
 
 ${servers country ports}
 
@@ -37,7 +35,6 @@ remote-cert-tls server
 auth-user-pass ${auth-user-pass}
 pull
 fast-io
-
 
 ca ${ca}
 
