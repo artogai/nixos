@@ -56,6 +56,8 @@ in
       internalInterfaces = [ "tun0" "tun1" ];
     };
 
+    networking.firewall.trustedInterfaces = [ "tun0" "tun1" ];
+
     services.openvpn.servers = {
       "${config.network.hostName}-udp" = server "udp" cfg.port;
       "${config.network.hostName}-tcp" = server "tcp" cfg.tcpPort;

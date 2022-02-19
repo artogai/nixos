@@ -8,6 +8,7 @@ in
       ./hardware.nix
       ../server.nix
       ../../networking/openvpn/server.nix
+      ../../services/nextcloud.nix
     ];
 
   network = {
