@@ -6,6 +6,7 @@
     ../../dotfiles/themes
     ../../dotfiles/git
     ../../dotfiles/java
+    ../../dotfiles/syncthing
   ];
 
   home.packages = with pkgs; [
