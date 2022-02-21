@@ -1,66 +1,34 @@
-{ config, lib, ... }:
+{ config, ...}:
 
 let
-  inherit (lib) mkOption types;
-
-  cfg = config.openvpn.server;
-
-  server = protocol: port: {
-    autoStart = true;
-    config =
-      (import ./config/server.nix)
-        protocol
-        port
-        cfg.ca
-        cfg.cert
-        cfg.key
-        cfg.crl
-        cfg.tlsCrypt;
-  };
+  shadow = import ../../shadow.nix;
+  hostName = config.network.hostName;
 in
 {
-  options = {
-    openvpn.server = with types; mkOption {
-      type = submodule {
-        options = {
-          port = mkOption {
-            type = int;
-          };
-          tcpPort = mkOption {
-            type = int;
-          };
-          ca = mkOption {
-            type = path;
-          };
-          cert = mkOption {
-            type = path;
-          };
-          key = mkOption {
-            type = path;
-          };
-          crl = mkOption {
-            type = path;
-          };
-          tlsCrypt = mkOption {
-            type = path;
-          };
-        };
-      };
-    };
+  imports = [
+    ./module/server.nix
+  ];
+
+  networking.firewall = {
+    allowedTCPPorts = [ shadow.${hostName}.ovpnTcpPort ];
+    allowedUDPPorts = [ shadow.${hostName}.ovpnPort ];
   };
 
-  config = {
-    networking.nat = {
-      enable = true;
-      externalInterface = config.network.vlan;
-      internalInterfaces = [ "tun0" "tun1" ];
-    };
+  openvpn.server = {
+    port = shadow.${hostName}.ovpnPort;
+    tcpPort = shadow.${hostName}.ovpnTcpPort;
+    ca = config.sops.secrets."openvpn/ca".path;
+    tlsCrypt = config.sops.secrets."openvpn/tls-crypt".path;
+    cert = config.sops.secrets."openvpn/${hostName}/cert".path;
+    key = config.sops.secrets."openvpn/${hostName}/key".path;
+    crl = config.sops.secrets."openvpn/${hostName}/crl".path;
+  };
 
-    networking.firewall.trustedInterfaces = [ "tun0" "tun1" ];
-
-    services.openvpn.servers = {
-      "${config.network.hostName}-udp" = server "udp" cfg.port;
-      "${config.network.hostName}-tcp" = server "tcp" cfg.tcpPort;
-    };
+  sops.secrets = {
+    "openvpn/ca" = { };
+    "openvpn/tls-crypt" = { };
+    "openvpn/${hostName}/cert" = { };
+    "openvpn/${hostName}/key" = { };
+    "openvpn/${hostName}/crl" = { };
   };
 }

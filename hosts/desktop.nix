@@ -22,25 +22,10 @@ in
     ../networking/openvpn/proton.nix
     ../networking/openvpn/client.nix
 
+    ../services/gnupg.nix
+
     ../nix/flakes.nix
   ];
-
-  openvpn.client = {
-    host = "chekhov";
-    port = shadow.chekhov.ovpnPort;
-    tcpPort = shadow.chekhov.ovpnTcpPort;
-    ca = config.sops.secrets."openvpn/ca".path;
-    tlsCrypt = config.sops.secrets."openvpn/tls-crypt".path;
-    cert = config.sops.secrets."openvpn/${config.network.hostName}/cert".path;
-    key = config.sops.secrets."openvpn/${config.network.hostName}/key".path;
-  };
-
-  sops.secrets = {
-    "openvpn/ca" = { };
-    "openvpn/tls-crypt" = { };
-    "openvpn/${config.network.hostName}/cert" = { };
-    "openvpn/${config.network.hostName}/key" = { };
-  };
 
   users.users.artem.extraGroups = [ "video" "audio" "disk" "networkmanager" ];
 
@@ -54,15 +39,11 @@ in
 
   services.gvfs.enable = true;
 
-  sops.age.keyFile = "/home/artem/.config/sops/age/keys.txt";
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryFlavor = "curses";
-  };
-
   systemd.sleep.extraConfig = "HibernateDelaySec=1h";
 
   environment.extraInit = ''
     unset -v SSH_ASKPASS
   '';
+
+  sops.age.keyFile = "/home/artem/.config/sops/age/keys.txt";
 }

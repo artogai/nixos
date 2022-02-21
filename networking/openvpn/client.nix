@@ -1,59 +1,28 @@
-{ config, lib, ... }:
-
+{ config, ... }:
 let
-  inherit (lib) mkOption types;
-
-  cfg = config.openvpn.client;
-
-  client = protocol: port: {
-    autoStart = false;
-    config =
-      (import ./config/client.nix)
-        protocol
-        cfg.host
-        port
-        cfg.ca
-        cfg.cert
-        cfg.key
-        cfg.tlsCrypt;
-  };
+  shadow = import ../../shadow.nix;
+  serverHostName = "chekhov";
+  clientHostName = config.network.hostName;
 in
 {
+  imports = [
+    ./module/client.nix
+  ];
 
-  options = {
-    openvpn.client = with types; mkOption {
-      type = submodule {
-        options = {
-          host = mkOption {
-            type = str;
-          };
-          port = mkOption {
-            type = int;
-          };
-          tcpPort = mkOption {
-            type = int;
-          };
-          ca = mkOption {
-            type = path;
-          };
-          cert = mkOption {
-            type = path;
-          };
-          key = mkOption {
-            type = path;
-          };
-          tlsCrypt = mkOption {
-            type = path;
-          };
-        };
-      };
-    };
+  openvpn.client = {
+    host = serverHostName;
+    port = shadow.${serverHostName}.ovpnPort;
+    tcpPort = shadow.${serverHostName}.ovpnTcpPort;
+    ca = config.sops.secrets."openvpn/ca".path;
+    tlsCrypt = config.sops.secrets."openvpn/tls-crypt".path;
+    cert = config.sops.secrets."openvpn/${clientHostName}/cert".path;
+    key = config.sops.secrets."openvpn/${clientHostName}/key".path;
   };
 
-  config = {
-    services.openvpn.servers = {
-      "${cfg.host}-udp" = client "udp" cfg.port;
-      "${cfg.host}-tcp" = client "tcp" cfg.tcpPort;
-    };
+  sops.secrets = {
+    "openvpn/ca" = { };
+    "openvpn/tls-crypt" = { };
+    "openvpn/${clientHostName}/cert" = { };
+    "openvpn/${clientHostName}/key" = { };
   };
 }
