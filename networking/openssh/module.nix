@@ -10,7 +10,7 @@
     services.openssh = {
       enable = true;
       ports = [ config.openssh.port ];
-      openFirewall = true;
+      openFirewall = false;
       permitRootLogin = "prohibit-password";
       passwordAuthentication = false;
       allowSFTP = false;

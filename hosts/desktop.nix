@@ -19,8 +19,8 @@ in
     ../graphics/xserver.nix
     ../graphics/xmonad.nix
 
+    ../networking/wireguard/client.nix
     ../networking/openvpn/proton.nix
-    ../networking/openvpn/client.nix
 
     ../services/gnupg.nix
 

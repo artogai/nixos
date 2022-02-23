@@ -6,6 +6,7 @@
       ./hardware.nix
       ../desktop.nix
       ../../hardware/battery.nix
+
     ];
 
   network = {
