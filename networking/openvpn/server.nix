@@ -9,11 +9,6 @@ in
     ./module/server.nix
   ];
 
-  networking.firewall = {
-    allowedTCPPorts = [ shadow.${hostName}.ovpnTcpPort ];
-    allowedUDPPorts = [ shadow.${hostName}.ovpnPort ];
-  };
-
   openvpn.server = {
     port = shadow.${hostName}.ovpnPort;
     tcpPort = shadow.${hostName}.ovpnTcpPort;

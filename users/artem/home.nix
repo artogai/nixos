@@ -33,6 +33,9 @@
     zip
     unzip
 
+    fuse
+    ntfs3g
+
     deploy-rs.deploy-rs
     sops
     age
