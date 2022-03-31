@@ -1,7 +1,7 @@
 self: super:
 {
   jetbrains = {
-    jdk = super.jdk;
+    jdk = super.jdk11;
     idea-community = super.jetbrains.idea-community.overrideAttrs (oldAttrs: rec {
       name = "idea-community-${version}";
       version = "2021.3.2";

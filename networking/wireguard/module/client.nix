@@ -16,7 +16,7 @@ in
             type = path;
           };
           subnet = mkOption {
-            type = str;
+            type = listOf str;
           };
           serverHost = mkOption {
             type = str;
@@ -36,7 +36,7 @@ in
     firewall.allowedUDPPorts = [ cfg.port ];
 
     wg-quick.interfaces.wg0 = {
-      address = [ "10.100.0.2/24" "fdc9:281f:04d7:9ee9::2/64" ];
+      address = cfg.subnet;
       dns = [ "10.100.0.1" "fdc9:281f:04d7:9ee9::1" ];
       privateKeyFile = cfg.privateKey;
 

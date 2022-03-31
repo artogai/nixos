@@ -27,7 +27,8 @@ in
     ../nix/flakes.nix
   ];
 
-  users.users.artem.extraGroups = [ "video" "audio" "disk" "networkmanager" ];
+  users.users.artem.extraGroups = [ "video" "audio" "disk" "networkmanager" "docker" ];
+  virtualisation.docker.enable = true;
 
   networking = {
     networkmanager.enable = true;
