@@ -12,6 +12,7 @@
   home.packages = with pkgs; [
     alacritty
     firefox
+    chromium
     tdesktop
     keepassxc
     vlc
@@ -35,9 +36,6 @@
 
     fuse
     ntfs3g
-
-    android-tools
-    android-udev-rules
 
     deploy-rs.deploy-rs
     sops
