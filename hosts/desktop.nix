@@ -27,7 +27,9 @@ in
     ../nix/flakes.nix
   ];
 
-  users.users.artem.extraGroups = [ "video" "audio" "disk" "networkmanager" "docker" ];
+  users.users.artem.extraGroups = [ "video" "audio" "disk" "networkmanager" "docker" "libvirtd" ];
+  virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
 
   networking = {
     networkmanager.enable = true;
@@ -36,8 +38,6 @@ in
       ${shadow.nextcloud.ip} = [ "nextcloud.local" ];
     };
   };
-
-  virtualisation.docker.enable = true;
 
   programs.chromium.enable = true;
 

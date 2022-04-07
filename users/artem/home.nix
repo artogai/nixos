@@ -18,6 +18,9 @@
     vlc
     transmission-gtk
     discord
+    electrum
+
+    virt-manager
 
     sbt
     scala
