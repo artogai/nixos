@@ -35,5 +35,9 @@ in
     #chechia
     cz-udp = client "udp" "cz";
     cz-tcp = client "tcp" "cz";
+
+    #russia
+    ru-udp = client "udp" "ru";
+    ru-tcp = client "tcp" "ru";
   };
 }

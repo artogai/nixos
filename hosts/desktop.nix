@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 let
   shadow = import ../shadow.nix;
 in
@@ -30,6 +30,7 @@ in
   users.users.artem.extraGroups = [ "video" "audio" "disk" "networkmanager" "docker" "libvirtd" ];
   virtualisation.docker.enable = true;
   virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   networking = {
     networkmanager.enable = true;
@@ -40,6 +41,7 @@ in
   };
 
   programs.chromium.enable = true;
+  programs.steam.enable = true;
 
   services.gvfs.enable = true;
 

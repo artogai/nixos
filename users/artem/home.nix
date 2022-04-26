@@ -19,6 +19,7 @@
     transmission-gtk
     discord
     electrum
+    evince
 
     virt-manager
 
