@@ -27,10 +27,11 @@ in
     ../nix/flakes.nix
   ];
 
-  users.users.artem.extraGroups = [ "video" "audio" "disk" "networkmanager" "docker" "libvirtd" ];
+  users.users.artem.extraGroups = [ "video" "audio" "disk" "networkmanager" "docker" "libvirtd" "adbusers" ];
   virtualisation.docker.enable = true;
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
+  programs.adb.enable = true;
 
   networking = {
     networkmanager.enable = true;
