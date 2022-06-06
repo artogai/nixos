@@ -3,6 +3,7 @@
 {
   imports =
     [
+      ../../system/boot-systemd.nix
       ./hardware.nix
       ../desktop.nix
     ];

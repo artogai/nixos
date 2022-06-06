@@ -24,16 +24,13 @@
     shutter
     gnome.cheese
 
-
     slack
     dbeaver
     postman
     charles
-    bundix
     docker-compose
     android-studio
     gradle
-
 
     #needed or idea
     #wmname LG3D hack

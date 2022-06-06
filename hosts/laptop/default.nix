@@ -3,6 +3,7 @@
 {
   imports =
     [
+      ../../system/boot-grub.nix
       ./hardware.nix
       ../desktop.nix
       ../../hardware/battery.nix

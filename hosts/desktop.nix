@@ -6,7 +6,6 @@ in
   imports = [
     ./host.nix
 
-    ../system/boot-systemd.nix
     ../system/fonts.nix
 
     ../hardware/cpu.nix
