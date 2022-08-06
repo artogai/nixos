@@ -7,7 +7,6 @@
       ./hardware.nix
       ../desktop.nix
       ../../hardware/battery.nix
-
     ];
 
   network = {
@@ -25,7 +24,7 @@
       adapter = "AC";
     };
 
-    bluetooth.enable = false;
+    bluetooth.enable = true;
   };
 
   system.stateVersion = "21.11";

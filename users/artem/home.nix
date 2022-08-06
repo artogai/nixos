@@ -65,6 +65,9 @@
     git-crypt
   ];
 
+  services.blueman-applet.enable = true;
+  services.mpris-proxy.enable = true;
+
   #https://github.com/nix-community/home-manager/issues/2064
   systemd.user.targets.tray = {
     Unit = {
@@ -72,4 +75,6 @@
       Requires = [ "graphical-session-pre.target" ];
     };
   };
+
+  home.stateVersion = "21.11";
 }

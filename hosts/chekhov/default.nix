@@ -8,7 +8,6 @@
 
       ../../networking/wireguard/server.nix
 
-      ../../services/nextcloud.nix
     ];
 
   network = {
