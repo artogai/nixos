@@ -3,7 +3,7 @@
 {
   sops.secrets."nextcloud/password" = {
     owner = config.users.users.nextcloud.name;
-   };
+  };
 
   services.nextcloud = {
     enable = true;

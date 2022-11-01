@@ -17,7 +17,10 @@ let
           {
             nixpkgs = {
               config.allowUnfree = true;
-              overlays = [ (import ./overlays.nix nixpkgs) deploy-rs.overlay ];
+              overlays = [
+                #(import ./overlays.nix nixpkgs)
+                deploy-rs.overlay
+              ];
             };
           }
         ];

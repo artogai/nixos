@@ -41,7 +41,6 @@ in
 
   programs.chromium.enable = true;
   programs.steam.enable = true;
-
   services.gvfs.enable = true;
 
   systemd.sleep.extraConfig = "HibernateDelaySec=1h";

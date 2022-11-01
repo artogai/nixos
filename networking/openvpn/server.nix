@@ -1,4 +1,4 @@
-{ config, ...}:
+{ config, ... }:
 
 let
   shadow = import ../../shadow.nix;

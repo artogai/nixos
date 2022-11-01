@@ -1,6 +1,6 @@
 {
   sops = {
     defaultSopsFile = ../secrets/default.yaml;
-    gnupg.sshKeyPaths = [];
+    gnupg.sshKeyPaths = [ ];
   };
 }
