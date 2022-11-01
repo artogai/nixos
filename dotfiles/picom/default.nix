@@ -7,7 +7,7 @@
     vSync = true;
     fade = true;
     fadeDelta = 5;
-    opacityRule = [ "100:name *= 'i3lock'" ];
+    opacityRules = [ "100:name *= 'i3lock'" ];
     shadow = false;
     shadowOpacity = 0.75;
   };

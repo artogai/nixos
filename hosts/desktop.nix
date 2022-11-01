@@ -36,7 +36,6 @@ in
     networkmanager.enable = true;
     hosts = {
       ${shadow.chekhov.ip} = [ "chekhov" ];
-      ${shadow.nextcloud.ip} = [ "nextcloud.local" ];
     };
   };
 

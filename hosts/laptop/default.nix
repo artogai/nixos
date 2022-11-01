@@ -27,5 +27,9 @@
     bluetooth.enable = true;
   };
 
+  services.logind.extraConfig = ''
+    HandlePowerKey=hibernate
+  '';
+
   system.stateVersion = "21.11";
 }

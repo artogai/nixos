@@ -18,6 +18,7 @@
     vlc
     transmission-gtk
     discord
+    element-desktop
     electrum
     evince
     freetube
@@ -27,6 +28,10 @@
     slack
     dbeaver
     postman
+    saml2aws
+    aws-vault
+    awscli2
+    protonvpn-gui
     charles
     docker-compose
     android-studio
