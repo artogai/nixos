@@ -22,7 +22,7 @@
     eog # image viewer
     evince # pdf reader
     gnome-calendar # calendar
-    nautilus # file manager
+    xfce.thunar # file manager
   ];
 
   xsession = {

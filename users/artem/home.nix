@@ -10,64 +10,64 @@
   ];
 
   home.packages = with pkgs; [
+    # apps
     alacritty
-    firefox
-    chromium
-    tdesktop
+    electrum
+    freetube
+    libreoffice
+    gnome.cheese
     keepassxc
     vlc
     transmission-gtk
-    discord
-    element-desktop
-    electrum
-    evince
-    freetube
     shutter
-    gnome.cheese
-
-    slack
-    dbeaver
-    postman
-    saml2aws
-    aws-vault
-    awscli2
     protonvpn-gui
-    charles
-    docker-compose
-    android-studio
-    gradle
+    bartib
 
-    #needed or idea
-    #wmname LG3D hack
-    #todo: find better solution
-    wmname
 
-    virt-manager
+    # messengers
+    tdesktop
+    element-desktop
+    slack
 
-    sbt
-    scala
-    visualvm
+    # browsers
+    firefox
+    chromium
 
+    # ides
     vscode
     jetbrains.idea-community
-    nixpkgs-fmt
 
+    # coding
+    sbt
+    scala
+    gradle
+    visualvm
     ghc
     haskellPackages.stylish-haskell
+    nixpkgs-fmt
+    dbeaver
+    postman
 
+    # virtualization
+    virt-manager
+    docker-compose
+
+    # utils
+    fd
+    ripgrep
     psmisc
     zip
     unzip
-
     fuse
     ntfs3g
-
-    deploy-rs.deploy-rs
     sops
     age
     ssh-to-age
     easyrsa
     git-crypt
+
+    # nixos
+    deploy-rs.deploy-rs
   ];
 
   services.blueman-applet.enable = true;
