@@ -49,5 +49,10 @@ in
     unset -v SSH_ASKPASS
   '';
 
+  environment.variables = {
+    EDITOR = "code";
+    BARTIB_FILE = "\${HOME}/Documents/time.bartib";
+  };
+
   sops.age.keyFile = "/home/artem/.config/sops/age/keys.txt";
 }

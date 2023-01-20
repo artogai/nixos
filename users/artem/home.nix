@@ -10,7 +10,6 @@
   ];
 
   home.packages = with pkgs; [
-    # apps
     alacritty
     electrum
     freetube
@@ -22,7 +21,6 @@
     shutter
     protonvpn-gui
     bartib
-
 
     # messengers
     tdesktop
@@ -65,6 +63,9 @@
     ssh-to-age
     easyrsa
     git-crypt
+    wmname
+    pandoc
+    gsettings-desktop-schemas
 
     # nixos
     deploy-rs.deploy-rs
