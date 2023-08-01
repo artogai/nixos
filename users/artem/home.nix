@@ -56,6 +56,7 @@
     aws-iam-authenticator
     kubectl
     kcat
+    cachix
 
     # virtualization
     virt-manager
