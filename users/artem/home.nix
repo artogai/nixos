@@ -7,20 +7,27 @@
     ../../dotfiles/git
     ../../dotfiles/java
     ../../dotfiles/syncthing
+    ../../dotfiles/vscode
   ];
+
 
   home.packages = with pkgs; [
     alacritty
     electrum
-    freetube
     libreoffice
     gnome.cheese
     keepassxc
     vlc
     transmission-gtk
     shutter
-    protonvpn-gui
     bartib
+    thunderbird
+    openvpn
+    protonvpn-gui
+    zoom-us
+    gimp
+    imagemagick
+    clamav
 
     # messengers
     tdesktop
@@ -32,7 +39,6 @@
     chromium
 
     # ides
-    vscode
     jetbrains.idea-community
 
     # coding
@@ -45,6 +51,11 @@
     nixpkgs-fmt
     dbeaver
     postman
+    terraform
+    awscli2
+    aws-iam-authenticator
+    kubectl
+    kcat
 
     # virtualization
     virt-manager

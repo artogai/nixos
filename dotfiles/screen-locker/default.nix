@@ -9,7 +9,7 @@
   services.xidlehook = {
     enable = true;
     not-when-fullscreen = true;
-    not-when-audio = false;
+    not-when-audio = true;
     once = false;
 
     timers = [
