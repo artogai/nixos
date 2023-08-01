@@ -11,10 +11,13 @@
       enable = true;
       ports = [ config.openssh.port ];
       openFirewall = false;
-      permitRootLogin = "prohibit-password";
-      passwordAuthentication = false;
+      settings =
+        {
+          PermitRootLogin = "prohibit-password";
+          PasswordAuthentication = false;
+          KbdInteractiveAuthentication = false;
+        };
       allowSFTP = false;
-      kbdInteractiveAuthentication = false;
       extraConfig = ''
         AllowTcpForwarding yes
         X11Forwarding no

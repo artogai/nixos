@@ -46,9 +46,9 @@ in
 
     services.dnsmasq = {
       enable = true;
-      extraConfig = ''
-        interface=wg0
-      '';
+      settings = {
+        interface = "wg0";
+      };
     };
 
     networking.wg-quick.interfaces.wg0 = {
