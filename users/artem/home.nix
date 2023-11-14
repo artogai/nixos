@@ -10,20 +10,21 @@
     ../../dotfiles/vscode
   ];
 
+  programs = {
+    direnv.enable = true;
+    bash.enable = true;
+  };
 
   home.packages = with pkgs; [
     alacritty
     electrum
     libreoffice
-    gnome.cheese
     keepassxc
     vlc
     transmission-gtk
     shutter
     bartib
     thunderbird
-    openvpn
-    protonvpn-gui
     zoom-us
     gimp
     imagemagick
@@ -39,19 +40,19 @@
     chromium
 
     # ides
-    jetbrains.idea-community
+    # jetbrains.idea-community
 
     # coding
-    sbt
-    scala
-    gradle
-    visualvm
+    # sbt
+    # scala
+    # gradle
+    # visualvm
     ghc
-    haskellPackages.stylish-haskell
-    nixpkgs-fmt
+    # haskellPackages.stylish-haskell
+    # nixpkgs-fmt
     dbeaver
-    postman
-    terraform
+    # postman
+    # terraform
     awscli2
     aws-iam-authenticator
     kubectl
@@ -60,7 +61,7 @@
 
     # virtualization
     virt-manager
-    docker-compose
+    # docker-compose
 
     # utils
     fd
