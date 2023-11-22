@@ -19,17 +19,17 @@
     #   <label-volume> (default)
     #   <ramp-volume>
     #   <bar-volume>
-    format-volume = "<ramp-volume> <label-volume>";
+    format-volume = "<ramp-volume>  <label-volume>";
 
     # Available tokens:
     #   %percentage% (default)
     #   %decibels%
-    label-muted = " ﱝ";
+    label-muted = "󰖁";
 
     # Only applies if <ramp-volume> is used
-    ramp-volume-0 = "奄";
-    ramp-volume-1 = "奄";
-    ramp-volume-2 = "奄";
+    ramp-volume-0 = "";
+    ramp-volume-1 = "󰕾";
+    ramp-volume-2 = "";
 
     # Right and Middle click
     click-right = "${pkgs.pavucontrol}/bin/pavucontrol&";
