@@ -2,6 +2,7 @@ import qualified Codec.Binary.UTF8.String     as UTF8
 import qualified DBus                         as D
 import qualified DBus.Client                  as D
 import qualified Data.Map                     as M
+import qualified XMonad.Util.Hacks            as Hacks
 import           Data.Monoid
 import           Graphics.X11.ExtraTypes.XF86
 import           System.Exit                  (exitSuccess)
@@ -144,7 +145,7 @@ myManageHook =
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = fullscreenEventHook
+-- myEventHook = fullscreenEventHook
 
 ------------------------------------------------------------------------
 -- Status bars and logging
@@ -214,8 +215,10 @@ myPolybarLogHook dbus = myLogHook <+> dynamicLogWithPP (polybarHook dbus)
 --
 main = do
   dbus <- mkDbusClient
-  xmonad $
-    ewmh
+  xmonad
+    $ ewmhFullscreen
+    $ Hacks.javaHack
+    $ ewmh
       ( docks
           def
             { -- simple stuff
@@ -230,7 +233,7 @@ main = do
               -- hooks, layouts
               layoutHook = smartBorders myLayout,
               manageHook = myManageHook,
-              handleEventHook = myEventHook,
+              handleEventHook = Hacks.windowedFullscreenFixEventHook,
               logHook = myPolybarLogHook dbus,
               startupHook = myStartupHook
             }
