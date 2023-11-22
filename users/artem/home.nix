@@ -24,12 +24,10 @@
     transmission-gtk
     shutter
     bartib
-    gimp
     imagemagick
 
     # messengers
     tdesktop
-    element-desktop
 
     # browsers
     firefox
@@ -46,7 +44,7 @@
     # ghc
     # haskellPackages.stylish-haskell
     # nixpkgs-fmt
-    dbeaver
+    # dbeaver
     # postman
     # terraform
     kubectl
