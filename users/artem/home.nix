@@ -24,16 +24,12 @@
     transmission-gtk
     shutter
     bartib
-    thunderbird
-    zoom-us
     gimp
     imagemagick
-    clamav
 
     # messengers
     tdesktop
     element-desktop
-    slack
 
     # browsers
     firefox
@@ -47,14 +43,12 @@
     # scala
     # gradle
     # visualvm
-    ghc
+    # ghc
     # haskellPackages.stylish-haskell
     # nixpkgs-fmt
     dbeaver
     # postman
     # terraform
-    awscli2
-    aws-iam-authenticator
     kubectl
     kcat
     cachix
