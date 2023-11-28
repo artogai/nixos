@@ -50,9 +50,16 @@
     kubectl
     kcat
     cachix
+    nixpkgs-fmt
 
     # virtualization
     virt-manager
+    virt-viewer
+    spice
+    spice-gtk
+    spice-protocol
+    virglrenderer
+
     # docker-compose
 
     # utils
@@ -86,6 +93,7 @@
       Requires = [ "graphical-session-pre.target" ];
     };
   };
+
 
   home.stateVersion = "21.11";
 }

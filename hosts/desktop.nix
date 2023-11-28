@@ -21,6 +21,8 @@ in
     ../networking/wireguard/client.nix
     ../networking/openvpn/proton.nix
 
+    ../virtualization/qemu.nix
+
     ../services/gnupg.nix
 
     ../nix/flakes.nix
@@ -28,8 +30,6 @@ in
 
   users.users.artem.extraGroups = [ "video" "audio" "disk" "networkmanager" "docker" "libvirtd" "adbusers" ];
   virtualisation.docker.enable = true;
-  virtualisation.libvirtd.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
   programs.adb.enable = true;
 
   networking = {
