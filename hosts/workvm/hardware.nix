@@ -11,7 +11,7 @@
 
   boot.initrd.availableKernelModules = [ "ata_piix" "uhci_hcd" "virtio_pci" "floppy" "sr_mod" "virtio_blk" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
@@ -57,13 +57,13 @@
   virtualisation = {
     writableStoreUseTmpfs = false;
 
-    cores = 6;
-    memorySize = 8192;
-    diskSize = 100000;
+    cores = 8;
+    memorySize = 14000;
+    diskSize = 200000;
 
     resolution = {
       x = 1920;
-      y = 1080;
+      y = 1200;
     };
 
     qemu = {

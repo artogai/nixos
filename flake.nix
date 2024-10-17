@@ -21,7 +21,6 @@
       makeHosts = import ./nix/make-hosts.nix inp;
 
       hosts = makeHosts [
-        { host = "pc"; home = "artem"; }
         { host = "laptop"; home = "artem"; }
         { host = "workvm"; home = "vmuser"; }
         { host = "chekhov"; deploy = true; }

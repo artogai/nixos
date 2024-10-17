@@ -3,21 +3,21 @@
 {
   imports =
     [
-      ../../system/boot-grub.nix
       ./hardware.nix
       ../desktop.nix
+      ../../system/boot-grub.nix
       ../../hardware/battery.nix
     ];
 
   network = {
     hostName = "laptop";
-    wlan = "wlp3s0";
-    eth = "enp2s0";
+    wlan = "wlp0s20f3";
+    eth = "enp0s31f6";
   };
 
   hardware = {
-    cpuType = "amd";
-    gpuType = "amd";
+    cpuType = "intel";
+    gpuType = "intel";
 
     power = {
       battery = "BAT0";
@@ -31,5 +31,5 @@
     HandlePowerKey=hibernate
   '';
 
-  system.stateVersion = "21.11";
+  system.stateVersion = "23.11";
 }

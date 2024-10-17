@@ -8,7 +8,7 @@ in
 {
   options = {
     hardware.gpuType = mkOption {
-      type = types.enum [ "amd" "nvidia" ];
+      type = types.enum [ "amd" "nvidia" "intel" ];
     };
   };
 

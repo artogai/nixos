@@ -2,36 +2,27 @@
 {
   imports = [
     ../../dotfiles/keyboard
-    ../../dotfiles/git
     ../../dotfiles/xmonad
     ../../dotfiles/themes
+    ../../dotfiles/syncthing
   ];
 
   programs = {
     direnv.enable = true;
     bash.enable = true;
     vscode.enable = true;
+    alacritty.enable = true;
+    firefox.enable = true;
+    git.enable = true;
   };
 
   home.packages = with pkgs; [
-    alacritty
-    libreoffice
     keepassxc
     shutter
-
-    # messangers
+    bartib
     tdesktop
 
-    # browsers
-    firefox
-
-    # coding
-    kubectl
-    kcat
-    cachix
-
     # utils
-    fd
     psmisc
     zip
     unzip

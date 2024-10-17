@@ -18,8 +18,8 @@ in
     ../graphics/xserver.nix
     ../graphics/xmonad.nix
 
-    ../networking/wireguard/client.nix
-    ../networking/openvpn/proton.nix
+    #../networking/wireguard/client.nix
+    #../networking/openvpn/proton.nix
 
     ../virtualization/qemu.nix
 
@@ -34,13 +34,13 @@ in
 
   networking = {
     networkmanager.enable = true;
-    hosts = {
-      ${shadow.chekhov.ip} = [ "chekhov" ];
-    };
+    #hosts = {
+    #  ${shadow.chekhov.ip} = [ "chekhov" ];
+    #};
   };
 
   programs.chromium.enable = true;
-  programs.steam.enable = true;
+  #programs.steam.enable = true;
   services.gvfs.enable = true;
 
   systemd.sleep.extraConfig = "HibernateDelaySec=1h";
@@ -54,5 +54,5 @@ in
     BARTIB_FILE = "\${HOME}/Documents/time.bartib";
   };
 
-  sops.age.keyFile = "/home/artem/.config/sops/age/keys.txt";
+  #sops.age.keyFile = "/home/artem/.config/sops/age/keys.txt";
 }

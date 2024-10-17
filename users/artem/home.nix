@@ -4,30 +4,29 @@
     ../../dotfiles/xmonad
     ../../dotfiles/keyboard
     ../../dotfiles/themes
-    ../../dotfiles/git
-    ../../dotfiles/java
     ../../dotfiles/syncthing
-    ../../dotfiles/vscode
   ];
 
   programs = {
     direnv.enable = true;
     bash.enable = true;
+    vscode.enable = true;
+    git.enable = true;
   };
 
   home.packages = with pkgs; [
     alacritty
-    electrum
-    libreoffice
-    keepassxc
-    vlc
-    transmission-gtk
-    shutter
-    bartib
-    imagemagick
+    #electrum
+    #libreoffice
+    #keepassxc
+    #vlc
+    #transmission-gtk
+    #shutter
+    #bartib
+    #imagemagick
 
     # messengers
-    tdesktop
+    # tdesktop
 
     # browsers
     firefox
@@ -47,18 +46,14 @@
     # dbeaver
     # postman
     # terraform
-    kubectl
-    kcat
-    cachix
-    nixpkgs-fmt
 
     # virtualization
-    virt-manager
-    virt-viewer
-    spice
-    spice-gtk
-    spice-protocol
-    virglrenderer
+    #virt-manager
+    #virt-viewer
+    #spice
+    #spice-gtk
+    #spice-protocol
+    #virglrenderer
 
     # docker-compose
 
@@ -75,9 +70,9 @@
     ssh-to-age
     easyrsa
     git-crypt
-    wmname
-    pandoc
-    gsettings-desktop-schemas
+    #wmname
+    #pandoc
+    #gsettings-desktop-schemas
 
     # nixos
     deploy-rs.deploy-rs

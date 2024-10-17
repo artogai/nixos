@@ -1,11 +1,9 @@
 keys:
-  - &pc age1ywrhxpj4nrz2wk2s34rw806e0n37xjaulk4whhej46zp72s7294qg6qynz
   - &laptop age1kzej4sf3xr5mtfypdyumphk2nn8hk7lkatxh6f77r4mqflh3y94qavjudm
   - &chekhov age1qhpn4kf7k9ejy4erj8kv6c3qqsk49rgrzr262kqqwtw4ed2qc57swrqns8
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:
     - age:
-      - *pc
       - *laptop
       - *chekhov

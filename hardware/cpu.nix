@@ -8,7 +8,7 @@ in
 {
   options = {
     hardware.cpuType = mkOption {
-      type = types.enum [ "amd" ];
+      type = types.enum [ "amd" "intel" ];
     };
   };
 

@@ -11,18 +11,18 @@
   ];
 
   home.packages = with pkgs; with pkgs.gnome; [
-    xorg.xrandr # screens configuration
-    xorg.xmessage # display a message or query in a window
-    arandr # frontent for xrandr
+    #xorg.xrandr # screens configuration
+    #xorg.xmessage # display a message or query in a window
+    #arandr # frontent for xrandr
 
-    rofi-power-menu # power menu via rofi
-    pavucontrol # pulse audio volume control
+    # rofi-power-menu # power menu via rofi
+    #pavucontrol # pulse audio volume control
 
     # pkgs.gnome
-    eog # image viewer
-    evince # pdf reader
-    gnome-calendar # calendar
-    xfce.thunar # file manager
+    # eog # image viewer
+    # evince # pdf reader
+    # gnome-calendar # calendar
+    # xfce.thunar # file manager
   ];
 
   xsession = {

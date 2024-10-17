@@ -17,18 +17,18 @@ in
       server = [
         "1.1.1.1"
         "1.0.0.1"
-        shadow.dns.masq
       ];
     };
   };
-  networking.networkmanager.dns = "none";
-  networking.resolvconf.enable = false;
-  services.resolved.enable = false;
+  #networking.networkmanager.dns = "none";
+  #networking.resolvconf.enable = false;
+  #services.resolved.enable = false;
 
   environment.systemPackages = [ pkgs.wireguard-tools ];
 
   environment.variables = {
     EDITOR = "code --wait";
+    BARTIB_FILE = "\${HOME}/Documents/time.bartib";
   };
 
   virtualisation.docker.enable = true;

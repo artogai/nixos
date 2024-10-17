@@ -16,6 +16,8 @@
     ../users/vmuser
   ];
 
+  #boot.loader.efi.canTouchEfiVariables = true;
+
   sound = {
     enable = true;
     mediaKeys.enable = true;
